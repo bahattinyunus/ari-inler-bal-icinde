@@ -115,6 +115,7 @@ body {
 
 .btn-secondary:hover {
   background: #373330;
+  border-color: var(--gold-primary);
 }
 
 .btn-audio {
@@ -126,6 +127,55 @@ body {
 .btn-audio.active {
   background: rgba(56, 189, 248, 0.35);
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+/* Contemplation Banner */
+.contemplation-banner {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.1), rgba(120, 53, 15, 0.15));
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.contemplation-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  letter-spacing: 0.08em;
+}
+
+.contemplation-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold-bright);
+  border-left: 3px solid var(--gold-primary);
+  padding-left: 14px;
+  margin: 4px 0;
+}
+
+.contemplation-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.contemplation-author {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.badge-mini {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-bright);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 /* Cards & Layout */
@@ -166,6 +216,11 @@ body {
   font-size: 1.25rem;
   color: var(--gold-bright);
   font-family: var(--font-serif);
+}
+
+.sub-header-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .badge {
@@ -449,35 +504,103 @@ input[type="range"] {
   font-weight: 500;
 }
 
+/* Filter Container & Pills */
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: var(--bg-card-subtle);
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  min-width: 110px;
+}
+
+.pills-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 4px 12px;
+  background: #1c1917;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill:hover {
+  border-color: var(--gold-primary);
+  color: var(--text-main);
+}
+
+.pill.active {
+  background: var(--gold-primary);
+  color: #1c1917;
+  font-weight: 600;
+  border-color: var(--gold-bright);
+}
+
 /* Corpus Grid */
 .corpus-search-box {
-  width: 280px;
+  width: 320px;
 }
 
 .corpus-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 18px;
 }
 
 .corpus-card {
   background: var(--bg-card-subtle);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 10px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.corpus-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 158, 11, 0.4);
 }
 
 .corpus-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.corpus-author-meta {
+  display: flex;
+  flex-direction: column;
 }
 
 .corpus-author {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--gold-bright);
   font-family: var(--font-serif);
@@ -488,16 +611,28 @@ input[type="range"] {
   color: var(--text-muted);
 }
 
+.corpus-motif-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-bright);
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .corpus-verse {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.95rem;
   color: var(--accent-cyan);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 8px 12px;
-  border-left: 2px solid var(--gold-primary);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 10px 14px;
+  border-left: 3px solid var(--gold-primary);
   border-radius: 4px;
   white-space: pre-line;
+  line-height: 1.5;
 }
 
 .corpus-serh {
@@ -510,15 +645,17 @@ input[type="range"] {
   gap: 6px;
   flex-wrap: wrap;
   margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
 }
 
 .corpus-tag {
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(245, 158, 11, 0.08);
   color: var(--gold-bright);
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.7rem;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.15);
 }
 
 /* Footer */

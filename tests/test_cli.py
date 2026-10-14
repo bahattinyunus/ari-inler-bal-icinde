@@ -23,13 +23,58 @@ class TestCLI(unittest.TestCase):
         self.assertIn("SURET (ZÂHİR / AVAM) İLE HAKİKAT", cikis)
         self.assertIn("Fail Kimdir?", cikis)
 
-    def test_cli_divan(self):
+    def test_cli_divan_arama(self):
         buf = io.StringIO()
         with redirect_stdout(buf):
             kod = main(["divan", "-a", "Pir Sultan"])
         self.assertEqual(kod, 0)
         cikis = buf.getvalue()
         self.assertIn("Pir Sultan Abdal", cikis)
+
+    def test_cli_divan_gelenek(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            kod = main(["divan", "-g", "Mevlevî"])
+        self.assertEqual(kod, 0)
+        cikis = buf.getvalue()
+        self.assertIn("Mevlevî", cikis)
+
+    def test_cli_divan_motif(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            kod = main(["divan", "-m", "ari-ve-bal"])
+        self.assertEqual(kod, 0)
+        cikis = buf.getvalue()
+        self.assertIn("ari-ve-bal", cikis)
+
+    def test_cli_kesfet(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            kod = main(["kesfet"])
+        self.assertEqual(kod, 0)
+        cikis = buf.getvalue()
+        self.assertIn("GÜNÜN HİKMETİ VE TEFEKKÜR TECELLEİSİ", cikis)
+        self.assertIn("İrfani Şerh", cikis)
+
+    def test_cli_karsilastir(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            kod = main(["karsilastir", "--id1", "pir-sultan-abdal", "--id2", "ramakrishna-tuz-bebek"])
+        self.assertEqual(kod, 0)
+        cikis = buf.getvalue()
+        self.assertIn("KARŞILAŞTIRMALI İRFAN VE MİSTİSİZM ANALİZİ", cikis)
+        self.assertIn("Pir Sultan Abdal", cikis)
+        self.assertIn("Sri Ramakrishna Paramahamsa", cikis)
+
+    def test_cli_antoloji(self):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            kod = main(["antoloji"])
+        self.assertEqual(kod, 0)
+        cikis = buf.getvalue()
+        self.assertIn("KÜLLİYAT ANTOLOJİ RAPORU VE İSTATİSTİKLER", cikis)
+        self.assertIn("Gelenekler Dağılımı", cikis)
+        self.assertIn("Sembolik Motif Dağılımı", cikis)
 
     def test_cli_zar(self):
         buf = io.StringIO()

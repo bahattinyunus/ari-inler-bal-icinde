@@ -1,5 +1,5 @@
 """
-ari_inler_bal_icinde: Komut Satırı Arayüzü (CLI)
+ari_inler_bal_icinde: Komut Satırı Arayüzü (CLI) - Genişletilmiş Külliyat ve Karşılaştırma
 """
 
 from __future__ import annotations
@@ -105,25 +105,107 @@ def komut_matris(args: argparse.Namespace) -> None:
 
 def komut_divan(args: argparse.Namespace) -> None:
     """
-    Kanonik metinleri listeler ve arama yapar.
+    Kanonik metinleri listeler ve gelenek, motif veya serbest arama yapar.
     """
     kutuphane = KanonikKutuphane()
 
     if args.arama:
         metinler = kutuphane.serbest_arama(args.arama)
-        print(f"\n🔍 '{args.arama}' araması için bulunan metinler ({len(metinler)} sonuç):\n")
+        baslik = f"🔍 '{args.arama}' araması için bulunan metinler"
     elif args.tema:
         metinler = kutuphane.temaya_gore_ara(args.tema)
-        print(f"\n🔍 '{args.tema}' teması için bulunan metinler ({len(metinler)} sonuç):\n")
+        baslik = f"🏷️ '{args.tema}' teması için bulunan metinler"
+    elif args.gelenek:
+        metinler = kutuphane.gelenege_gore_ara(args.gelenek)
+        baslik = f"🏛️ '{args.gelenek}' geleneği için metinler"
+    elif args.motif:
+        metinler = kutuphane.motife_gore_ara(args.motif)
+        baslik = f"🕊️ '{args.motif}' motifi için metinler"
     else:
         metinler = kutuphane.tum_metinler()
-        print(f"\n📚 KANONİK İRFAN KÜTÜPHANESİ ({len(metinler)} Eser):\n")
+        baslik = "📚 KANONİK İRFAN KÜLLİYATI"
+
+    print(_renkli(f"\n{baslik} ({len(metinler)} Eser):\n", Renk.BOLD + Renk.ALTIN))
 
     for m in metinler:
         print(_renkli(f"◆ {m.muellif} — {m.eser} ({m.donem})", Renk.BOLD + Renk.ALTIN))
-        print(f"  Ekol: {m.ekol} | Temalar: {', '.join(m.temalar)}")
-        print(_renkli("  \"" + m.orijinal_metin.replace("\n", "\n   ") + "\"", Renk.CYAN))
-        print(f"  Şerh: {m.serh}\n")
+        print(f"  Gelenek: {_renkli(m.gelenek, Renk.CYAN)} | Ekol: {m.ekol} | Motif: {_renkli(m.motif, Renk.KEHRIBAR)}")
+        print(f"  Temalar: {', '.join(m.temalar)}")
+        print(_renkli("  \"" + m.orijinal_metin.replace("\n", "\n   ") + "\"", Renk.BOLD))
+        print(_renkli(f"  Tefsir/Şerh: {m.serh}", Renk.DIM))
+        print()
+
+
+def komut_kesfet(args: argparse.Namespace) -> None:
+    """
+    Rastgele bir irfani tecelli ve tefekkür alıntısı getirir.
+    """
+    kutuphane = KanonikKutuphane()
+    m = kutuphane.rastgele_getir()
+
+    print(_renkli("\n✨ GÜNÜN HİKMETİ VE TEFEKKÜR TECELLEİSİ\n", Renk.BOLD + Renk.ALTIN))
+    print(_renkli(f"Ârif   : {m.muellif} ({m.donem})", Renk.BOLD + Renk.CYAN))
+    print(f"Eser   : {m.eser} [{m.gelenek}]")
+    print(f"Motif  : {_renkli(m.motif, Renk.KEHRIBAR)}\n")
+    print(_renkli("──────────────── ALINTI ────────────────", Renk.ALTIN))
+    print(_renkli(m.orijinal_metin, Renk.BOLD + Renk.ALTIN))
+    print(_renkli("─────────────────────────────────────────", Renk.ALTIN))
+    print(f"\nİngilizce: \"{m.ingilizce_ceviri}\"")
+    print(f"\n💡 Ana Fikir: {m.ana_fikir}")
+    print(f"\n📖 İrfani Şerh:\n{m.serh}\n")
+
+
+def komut_karsilastir(args: argparse.Namespace) -> None:
+    """
+    İki arifi veya eseri yan yana ontolojik analize tabi tutar.
+    """
+    kutuphane = KanonikKutuphane()
+    id1 = args.id1
+    id2 = args.id2
+
+    try:
+        sonuc = kutuphane.karsilastir(id1, id2)
+    except Exception as e:
+        print(_renkli(f"\nHata: {e}", Renk.KIRMIZI))
+        return
+
+    m1 = sonuc["metin_1"]
+    m2 = sonuc["metin_2"]
+
+    print(_renkli("\n⚖️ KARŞILAŞTIRMALI İRFAN VE MİSTİSİZM ANALİZİ", Renk.BOLD + Renk.ALTIN))
+    print(_renkli("=" * 60, Renk.ALTIN))
+    print(f"1. Ârif: {_renkli(m1['muellif'], Renk.CYAN)} ({m1['gelenek']}) — Motif: {m1['motif']}")
+    print(f"2. Ârif: {_renkli(m2['muellif'], Renk.KEHRIBAR)} ({m2['gelenek']}) — Motif: {m2['motif']}")
+    print(_renkli("-" * 60, Renk.ALTIN))
+    print(f"Ortak Temalar: {_renkli(', '.join(sonuc['ortak_temalar']) or 'Yok', Renk.BOLD)}")
+    print(f"Motif Aynılığı: {'Evet' if sonuc['motif_ortakligi'] else 'Farklı ama Tamamlayıcı'}\n")
+    print(_renkli(">>> KARŞILAŞTIRMALI SENTEZ <<<", Renk.BOLD + Renk.ALTIN))
+    print(sonuc["sentez"])
+    print(_renkli("=" * 60, Renk.ALTIN) + "\n")
+
+
+def komut_antoloji(args: argparse.Namespace) -> None:
+    """
+    Külliyatın gelenek ve motif bazlı antoloji raporunu sunar.
+    """
+    kutuphane = KanonikKutuphane()
+    rapor = kutuphane.antoloji_raporu()
+
+    print(_renkli("\n📜 KÜLLİYAT ANTOLOJİ RAPORU VE İSTATİSTİKLER", Renk.BOLD + Renk.ALTIN))
+    print(_renkli("=" * 55, Renk.ALTIN))
+    print(f"Toplam Kayıtlı Kanonik Eser: {_renkli(str(rapor['toplam_eser_sayisi']), Renk.BOLD + Renk.CYAN)}\n")
+
+    print(_renkli("🏛️ Gelenekler Dağılımı:", Renk.BOLD))
+    for gel, sayi in rapor["gelenek_dagilimi"].items():
+        print(f"  • {gel:<35}: {_renkli(str(sayi), Renk.ALTIN)} eser")
+
+    print(_renkli("\n🕊️ Sembolik Motif Dağılımı:", Renk.BOLD))
+    for mot, sayi in rapor["motif_dagilimi"].items():
+        print(f"  • {mot:<35}: {_renkli(str(sayi), Renk.KEHRIBAR)} eser")
+
+    print(_renkli("\nÂrifler Listesi:", Renk.BOLD))
+    print(", ".join(rapor["muellifler"][:10]) + f"... ve diğerleri (Toplam {len(rapor['muellifler'])})")
+    print(_renkli("=" * 55, Renk.ALTIN) + "\n")
 
 
 def komut_zar(args: argparse.Namespace) -> None:
@@ -188,6 +270,10 @@ def komut_manifesto(args: argparse.Namespace) -> None:
 3. HAYRET MAKAMI (Taşan Kap Prensibi)
    Arının iniltisi elemden değil; sonsuz lezzet ve sınırsız güzellik karşısında
    daralan aklın feryadıdır. Şikâyet değil, vecdin ta kendisidir.
+
+4. EVRENSEL NON-DUALİZM (Damla, Tuz, Şeker ve Bal)
+   Anadolu ozanlarının balı, Upanishadlar'ın tuz bebeği, Meister Eckhart'ın şarabı
+   ve Spinoza'nın tek tözü aynı hakikati haykırır: "Varlık birdir; ikilik dildeki perdedir."
 """
     print(_renkli(manifesto, Renk.ALTIN))
 
@@ -211,9 +297,22 @@ def main(argv: Optional[list] = None) -> int:
     subparsers.add_parser("matris", help="Suret ve Hakikat karşılaştırma matrisini göster")
 
     # divan
-    p_divan = subparsers.add_parser("divan", help="Kanonik irfan edebiyatı kütüphanesini tara")
+    p_divan = subparsers.add_parser("divan", help="Kanonik irfan edebiyatı külliyatını tara")
     p_divan.add_argument("-a", "--arama", type=str, help="Serbest arama terimi")
-    p_divan.add_argument("-t", "--tema", type=str, help="Tematik filtre (fail, fena, zar, vuslat vb.)")
+    p_divan.add_argument("-t", "--tema", type=str, help="Tematik filtre")
+    p_divan.add_argument("-g", "--gelenek", type=str, help="Gelenek filtresi (Anadolu İrfanı, Mevlevî, vb.)")
+    p_divan.add_argument("-m", "--motif", type=str, help="Motif filtresi (ari-ve-bal, damla-ve-umman, vb.)")
+
+    # kesfet
+    subparsers.add_parser("kesfet", help="Rastgele irfani tecelli ve tefekkür alıntısı getir")
+
+    # karsilastir
+    p_kar = subparsers.add_parser("karsilastir", help="İki arifi yan yana karşılaştır")
+    p_kar.add_argument("--id1", type=str, default="pir-sultan-abdal", help="1. Metin ID'si")
+    p_kar.add_argument("--id2", type=str, default="ramakrishna-tuz-bebek", help="2. Metin ID'si")
+
+    # antoloji
+    subparsers.add_parser("antoloji", help="Külliyat istatistik ve antoloji dökümünü göster")
 
     # zar
     p_zar = subparsers.add_parser("zar", help="Akustik zâr ve frekans analizi yap")
@@ -238,6 +337,9 @@ def main(argv: Optional[list] = None) -> int:
         "simule": komut_simule,
         "matris": komut_matris,
         "divan": komut_divan,
+        "kesfet": komut_kesfet,
+        "karsilastir": komut_karsilastir,
+        "antoloji": komut_antoloji,
         "zar": komut_zar,
         "web": komut_web,
         "manifesto": komut_manifesto,

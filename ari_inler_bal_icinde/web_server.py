@@ -1,5 +1,5 @@
 """
-ari_inler_bal_icinde: Dahili Web Sunucusu ve Hafif REST API
+ari_inler_bal_icinde: Dahili Web Sunucusu ve Genişletilmiş REST API
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ WEB_DIR = Path(__file__).parent.parent / "web"
 
 class AriApiHandler(BaseHTTPRequestHandler):
     """
-    Hem statik web arayüzünü hem de ontolojik simülasyon API'sini
+    Hem statik web arayüzünü hem de ontolojik simülasyon ve antoloji API'sini
     harici bağımlılık gerektirmeden sunan HTTP işleyicisi.
     """
 
@@ -34,7 +34,12 @@ class AriApiHandler(BaseHTTPRequestHandler):
 
         # API Yolları
         if path == "/api/status":
-            self._json_cevap({"status": "ok", "versiyon": "0.1.0", "sistem": "ari-inler-bal-icinde"})
+            self._json_cevap({
+                "status": "ok",
+                "versiyon": "0.2.0",
+                "sistem": "ari-inler-bal-icinde",
+                "toplam_eser": len(self.kutuphane.tum_metinler()),
+            })
             return
 
         elif path == "/api/simulate":
@@ -57,13 +62,40 @@ class AriApiHandler(BaseHTTPRequestHandler):
         elif path == "/api/corpus":
             aranan = query.get("q", [None])[0]
             tema = query.get("tema", [None])[0]
+            gelenek = query.get("gelenek", [None])[0]
+            motif = query.get("motif", [None])[0]
+
             if aranan:
                 metinler = self.kutuphane.serbest_arama(aranan)
             elif tema:
                 metinler = self.kutuphane.temaya_gore_ara(tema)
+            elif gelenek:
+                metinler = self.kutuphane.gelenege_gore_ara(gelenek)
+            elif motif:
+                metinler = self.kutuphane.motife_gore_ara(motif)
             else:
                 metinler = self.kutuphane.tum_metinler()
             self._json_cevap([m.to_dict() for m in metinler])
+            return
+
+        elif path == "/api/random":
+            metin = self.kutuphane.rastgele_getir()
+            self._json_cevap(metin.to_dict())
+            return
+
+        elif path == "/api/compare":
+            id1 = query.get("id1", ["pir-sultan-abdal"])[0]
+            id2 = query.get("id2", ["ramakrishna-tuz-bebek"])[0]
+            try:
+                karsilastirma = self.kutuphane.karsilastir(id1, id2)
+                self._json_cevap(karsilastirma)
+            except Exception as e:
+                self._json_cevap({"error": str(e)}, kod=400)
+            return
+
+        elif path == "/api/report":
+            rapor = self.kutuphane.antoloji_raporu()
+            self._json_cevap(rapor)
             return
 
         elif path == "/api/matrix":
@@ -116,7 +148,6 @@ class AriApiHandler(BaseHTTPRequestHandler):
         self.wfile.write(govde)
 
     def log_message(self, format: str, *args: object) -> None:
-        # Standart HTTP erişim logları (isteğe göre sessizleştirilebilir)
         pass
 
 

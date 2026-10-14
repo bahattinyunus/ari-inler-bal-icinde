@@ -8,7 +8,6 @@ from ari_inler_bal_icinde.web_server import AriApiHandler
 class TestWebServer(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # Port 0 lets the OS pick an available free port
         cls.server = HTTPServer(("127.0.0.1", 0), AriApiHandler)
         cls.port = cls.server.server_port
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
@@ -26,7 +25,7 @@ class TestWebServer(unittest.TestCase):
             self.assertEqual(response.status, 200)
             data = json.loads(response.read().decode("utf-8"))
             self.assertEqual(data["status"], "ok")
-            self.assertEqual(data["sistem"], "ari-inler-bal-icinde")
+            self.assertGreaterEqual(data["toplam_eser"], 25)
 
     def test_simulate_endpoint(self):
         url = f"{self.base_url}/api/simulate?salik=TestApiSalik&viskozite=2.0"
@@ -43,7 +42,39 @@ class TestWebServer(unittest.TestCase):
             self.assertEqual(response.status, 200)
             data = json.loads(response.read().decode("utf-8"))
             self.assertIsInstance(data, list)
+            self.assertGreaterEqual(len(data), 25)
+
+    def test_corpus_filter_endpoint(self):
+        url = f"{self.base_url}/api/corpus?motif=ari-ve-bal"
+        with urllib.request.urlopen(url) as response:
+            self.assertEqual(response.status, 200)
+            data = json.loads(response.read().decode("utf-8"))
             self.assertGreaterEqual(len(data), 5)
+
+    def test_random_endpoint(self):
+        url = f"{self.base_url}/api/random"
+        with urllib.request.urlopen(url) as response:
+            self.assertEqual(response.status, 200)
+            data = json.loads(response.read().decode("utf-8"))
+            self.assertIn("muellif", data)
+            self.assertIn("orijinal_metin", data)
+
+    def test_compare_endpoint(self):
+        url = f"{self.base_url}/api/compare?id1=pir-sultan-abdal&id2=ramakrishna-tuz-bebek"
+        with urllib.request.urlopen(url) as response:
+            self.assertEqual(response.status, 200)
+            data = json.loads(response.read().decode("utf-8"))
+            self.assertIn("sentez", data)
+            self.assertIn("metin_1", data)
+            self.assertIn("metin_2", data)
+
+    def test_report_endpoint(self):
+        url = f"{self.base_url}/api/report"
+        with urllib.request.urlopen(url) as response:
+            self.assertEqual(response.status, 200)
+            data = json.loads(response.read().decode("utf-8"))
+            self.assertIn("toplam_eser_sayisi", data)
+            self.assertIn("gelenek_dagilimi", data)
 
     def test_matrix_endpoint(self):
         url = f"{self.base_url}/api/matrix"
@@ -51,7 +82,7 @@ class TestWebServer(unittest.TestCase):
             self.assertEqual(response.status, 200)
             data = json.loads(response.read().decode("utf-8"))
             self.assertIsInstance(data, list)
-            self.assertGreaterEqual(len(data), 4)
+            self.assertGreaterEqual(len(data), 5)
 
     def test_static_index(self):
         url = f"{self.base_url}/"

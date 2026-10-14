@@ -1,5 +1,5 @@
 """
-Örnek 2: Kanonik İrfan Kütüphanesi ve Matris Taraması
+Örnek 2: Kanonik İrfan Kütüphanesi, Motifler ve Karşılaştırmalı Analiz
 """
 
 import sys
@@ -16,20 +16,28 @@ from ari_inler_bal_icinde import KanonikKutuphane
 
 def main():
     kutuphane = KanonikKutuphane()
-    print(f"Toplam Yüklü Eser Sayısı: {len(kutuphane.tum_metinler())}\n")
+    rapor = kutuphane.antoloji_raporu()
+    print(f"Toplam Yüklü Eser Sayısı: {rapor['toplam_eser_sayisi']}\n")
 
-    print("--- 1. 'zar' Temalı Eserler ---")
-    zar_metinleri = kutuphane.temaya_gore_ara("zar")
-    for m in zar_metinleri:
-        print(f"[{m.muellif}] - {m.eser}:")
-        print(f"  \"{m.orijinal_metin.replace(chr(10), ' / ')}\"")
-        print(f"  Ana Fikir: {m.ana_fikir}\n")
+    print("--- 1. Gelenekler ve Eser Sayıları ---")
+    for gelenek, sayi in rapor["gelenek_dagilimi"].items():
+        print(f"  • {gelenek}: {sayi} eser")
 
-    print("--- 2. Suret vs Hakikat Karşılaştırma Matrisi ---")
-    for row in kutuphane.matris_getir():
-        print(f"Parametre: {row['parametre']}")
-        print(f"  Zâhir : {row['zahir']}")
-        print(f"  Bâtın : {row['batin']}\n")
+    print("\n--- 2. Sembolik Motifler ve Eser Sayıları ---")
+    for motif, sayi in rapor["motif_dagilimi"].items():
+        print(f"  • {motif}: {sayi} eser")
+
+    print("\n--- 3. Karşılaştırmalı Analiz: Pir Sultan Abdal vs Sri Ramakrishna ---")
+    karsilastirma = kutuphane.karsilastir("pir-sultan-abdal", "ramakrishna-tuz-bebek")
+    print(f"1. Metin: {karsilastirma['metin_1']['muellif']} ({karsilastirma['metin_1']['motif']})")
+    print(f"2. Metin: {karsilastirma['metin_2']['muellif']} ({karsilastirma['metin_2']['motif']})")
+    print(f"\nSentez:\n{karsilastirma['sentez']}")
+
+    print("\n--- 4. Rastgele Tefekkür Alıntısı ---")
+    tefekkur = kutuphane.rastgele_getir(tohum=100)
+    print(f"[{tefekkur.muellif} - {tefekkur.eser}]:")
+    print(f"\"{tefekkur.orijinal_metin.replace(chr(10), ' / ')}\"")
+    print(f"Şerh: {tefekkur.serh}")
 
 if __name__ == "__main__":
     main()

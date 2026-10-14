@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍯 Arı İnler Bal İçinde — Vuslat ve Fenâ Simülatörü</title>
+  <title>🍯 Arı İnler Bal İçinde — Vuslat ve Fenâ Simülatörü & İrfan Antolojisi</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="app-container">
     <!-- Header -->
     <header class="hero">
-      <div class="hero-badge">Anadolu İrfanı &middot; Vahdet-i Vücûd &middot; Ontoloji Mimarisi</div>
+      <div class="hero-badge">Anadolu İrfanı &middot; Vahdet-i Vücûd &middot; Evrensel Non-Dualizm</div>
       <h1 class="hero-title">🍯 Arı İnler Bal İçinde</h1>
       <p class="hero-quote">
         <em>"Kudretten verdi balı / Bahanesi oldu arı / Dinle imdi âh u zârı / Arı inler bal içinde."</em>
@@ -18,9 +18,23 @@
       <div class="hero-actions">
         <button id="btn-start" class="btn btn-primary">▶ Seyr-ü Sülûk'u Başlat</button>
         <button id="btn-reset" class="btn btn-secondary">↺ Başa Dön</button>
+        <button id="btn-random-insight" class="btn btn-secondary">✨ Tefekkür Alıntısı</button>
         <button id="btn-audio" class="btn btn-audio">🔊 Vecd Sesini Aç</button>
       </div>
     </header>
+
+    <!-- Contemplation Banner (Günün Hikmeti) -->
+    <div id="contemplation-banner" class="contemplation-banner">
+      <div class="contemplation-badge">✨ Vuslat Tefekkürü</div>
+      <blockquote id="contemplation-quote" class="contemplation-quote">
+        "Kudretten verdi balı, bahanesi oldu arı. Şimdi dinle âh u zârı, arı inler bal içinde."
+      </blockquote>
+      <div class="contemplation-meta">
+        <span id="contemplation-author" class="contemplation-author">Pir Sultan Abdal</span> &middot; 
+        <span id="contemplation-work" class="contemplation-work">Tevhid Nefesi</span> &middot; 
+        <span id="contemplation-tradition" class="badge-mini">Anadolu İrfanı</span>
+      </div>
+    </div>
 
     <!-- Main Grid -->
     <main class="grid-layout">
@@ -133,14 +147,46 @@
       </div>
     </section>
 
-    <!-- Canonical Corpus Section -->
+    <!-- Canonical Corpus & Anthology Section -->
     <section class="card full-card">
       <div class="card-header">
-        <h2>📚 Kanonik İrfan Kütüphanesi ve Şerhler</h2>
+        <div>
+          <h2>📚 Kanonik İrfan Külliyatı ve Karşılaştırmalı Antoloji</h2>
+          <span class="sub-header-text">30 Seçkin Metin &middot; 7 Ulu Ozan &middot; Doğu ve Batı Mistisizmi</span>
+        </div>
         <div class="corpus-search-box">
-          <input type="text" id="corpus-search" placeholder="Ârif, tema veya beyit ara..." class="input-text">
+          <input type="text" id="corpus-search" placeholder="Ârif, beyit, tema veya motif ara..." class="input-text">
         </div>
       </div>
+
+      <!-- Filter Pills -->
+      <div class="filter-container">
+        <div class="filter-group">
+          <span class="filter-title">Gelenek:</span>
+          <div id="tradition-filters" class="pills-wrapper">
+            <button class="pill active" data-filter-type="gelenek" data-value="all">Tümü</button>
+            <button class="pill" data-filter-type="gelenek" data-value="Anadolu İrfanı">Anadolu İrfanı</button>
+            <button class="pill" data-filter-type="gelenek" data-value="Mevlevî Geleneği">Mevlevî Geleneği</button>
+            <button class="pill" data-filter-type="gelenek" data-value="Klasik Tasavvuf & Fars Edebiyatı">Klasik Fars</button>
+            <button class="pill" data-filter-type="gelenek" data-value="Vahdet-i Vücûd Metafiziği">Vahdet-i Vücûd</button>
+            <button class="pill" data-filter-type="gelenek" data-value="Evrensel Mistisizm & Felsefe">Evrensel Felsefe</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-title">Sembolik Motif:</span>
+          <div id="motif-filters" class="pills-wrapper">
+            <button class="pill active" data-filter-type="motif" data-value="all">Tüm Motifler</button>
+            <button class="pill" data-filter-type="motif" data-value="ari-ve-bal">🍯 Arı & Bal</button>
+            <button class="pill" data-filter-type="motif" data-value="damla-ve-umman">🌊 Damla & Ummân</button>
+            <button class="pill" data-filter-type="motif" data-value="pervane-ve-ates">🔥 Pervâne & Ateş</button>
+            <button class="pill" data-filter-type="motif" data-value="tuz-ve-deniz">🧂 Tuz & Deniz</button>
+            <button class="pill" data-filter-type="motif" data-value="ney-ve-nefes">🎶 Ney & Soluk</button>
+            <button class="pill" data-filter-type="motif" data-value="ayna-ve-suret">🪞 Ayna & Suret</button>
+          </div>
+        </div>
+      </div>
+
       <div id="corpus-grid" class="corpus-grid">
         <!-- Populated by JS -->
       </div>
@@ -149,7 +195,7 @@
     <!-- Footer -->
     <footer class="footer">
       <p>
-        <strong>ari-inler-bal-icinde</strong> &middot; Pir Sultan Abdal, Yunus Emre, Niyâzî-i Mısrî ve cümle erenlerin irfani mirasına hürmetle.
+        <strong>ari-inler-bal-icinde</strong> &middot; Pir Sultan Abdal, Yunus Emre, Niyâzî-i Mısrî, Mevlânâ, Attâr, Hallâc, Spinoza, Meister Eckhart ve Ramakrishna'nın hakikat mirasına hürmetle.
       </p>
     </footer>
   </div>

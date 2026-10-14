@@ -1,5 +1,5 @@
 /**
- * 🍯 ari-inler-bal-icinde: İnteraktif Simülasyon, Ses Sentezleyici ve Görselleştirici
+ * 🍯 ari-inler-bal-icinde: İnteraktif Simülasyon, Ses Sentezleyici ve İrfan Antolojisi
  */
 
 // Dahili Yedek Veriler (Statik Dosya Olarak Açıldığında da Çalışması İçin)
@@ -8,82 +8,31 @@ const DEFAULT_MATRIX = [
     parametre: "Fail Kimdir?",
     zahir: "Balı arı yapar; emek, maharet ve mülkiyet arınındır.",
     batin: "Bal ilahi kudrettendir; arı yalnızca tecelli tezgâhı ve perdedir.",
-    temel: "Enfâl 17 / Pir Sultan Abdal (Tevhid-i Ef'âl)"
+    temel: "Enfâl 17 / Pir Sultan Abdal (Tevhid-i Ef'âl) / Spinoza"
   },
   {
     parametre: "İnlemenin Sebebi",
     zahir: "Arı yapışkan bala batmış, kanatları kilitlenmiş, çaresizce acı çekmektedir.",
     batin: "Sonsuz vuslatın lezzetinden sarhoş olmuş, ilahi nefesin vecdiyle mesttir.",
-    temel: "Fuzûlî / Mevlânâ (Mesnevî 1-3)"
+    temel: "Fuzûlî / Mevlânâ (Mesnevî 1-3) / San Juan de la Cruz"
   },
   {
     parametre: "Varlık İlişkisi",
     zahir: "Arı ayrı bir özne, bal ayrı bir nesnedir (Dualizm / Kesret).",
-    batin: "Arı balın içinde erimiş, ikilik perdesi yırtılmıştır (Vahdet-i Vücûd).",
-    temel: "Niyâzî-i Mısrî (Katrenin Ummân Oluşu)"
+    batin: "Arı balın içinde erimiş, ikilik perdesi yırtılmıştır (Vahdet-i Vücûd / Non-Dualizm).",
+    temel: "Niyâzî-i Mısrî (Katrenin Ummân Oluşu) / Chandogya Upanishad (Tat Tvam Asi)"
   },
   {
     parametre: "Sesin Anlamı",
     zahir: "Şikâyet, sızlanma, ölüm korkusu ve acı çığlığı.",
     batin: "Zikir, vecd, hayret ve sonlu kabın taşmasından doğan sır nidası.",
-    temel: "İbnü'l-Arabî (Tahayyür) / Şeyh Galip"
+    temel: "İbnü'l-Arabî (Tahayyür) / Şeyh Galip / Meister Eckhart"
   },
   {
     parametre: "Bitiş Noktası",
     zahir: "Yok oluş bir felaket, hezimet ve trajedidir.",
-    batin: "Fenâ, ebedi dirilişin (Bekābillâh) yegâne eşiğidir.",
-    temel: "Hallâc-ı Mansûr / Ferîdüddîn Attâr (Simurg)"
-  }
-];
-
-const DEFAULT_CORPUS = [
-  {
-    muellif: "Pir Sultan Abdal",
-    donem: "16. Yüzyıl Anadolu",
-    eser: "Tevhid Nefesi",
-    orijinal_metin: "Kudretten verdi balı,\nBahanesi oldu arı.\nDinle imdi âh u zârı,\nArı inler bal içinde.",
-    serh: "Arı balı kendi yaptığını sandıkça kesrettedir. Balın kudretten indiğini anladığında egosu kırılır; bala daldığında çıkan ses ayrılık değil vuslat vecdidir.",
-    temalar: ["fail", "kudret", "zar", "fena"]
-  },
-  {
-    muellif: "Yunus Emre",
-    donem: "13. Yüzyıl Anadolu",
-    eser: "Divân",
-    orijinal_metin: "Beni bende demen ben de değilem,\nBir ben vardır bende benden içerü.",
-    serh: "Dış kabuk aradan çekildiğinde içteki hakiki fail aşikâr olur. Arı o derin bene kavuştuğunda bal ile bir olur.",
-    temalar: ["benlik", "fena", "vahdet"]
-  },
-  {
-    muellif: "Mevlânâ Celâleddîn-i Rûmî",
-    donem: "13. Yüzyıl Horasan/Konya",
-    eser: "Mesnevî-i Ma'nevî",
-    orijinal_metin: "Bişnev in ney çün şikâyet mî-kuned,\nEz cüdâyîhâ hikâyet mî-kuned.",
-    serh: "Neyin iniltisi bir sızlanma değil, üfleyenin ilahi soluğunun kamış bedendeki rezonansıdır.",
-    temalar: ["zar", "ney", "inilti"]
-  },
-  {
-    muellif: "Niyâzî-i Mısrî",
-    donem: "17. Yüzyıl Osmanlı",
-    eser: "Divân-ı İlahiyât",
-    orijinal_metin: "Dermân arardım derdime derdim baña dermân imiş...\nKatre mevc urdu vü ummân oldu ol pinhân imiş.",
-    serh: "Arı bir damladır, bal sonsuz deryadır. Damla denize kavuştuğunda bizzat deryanın kendisine dönüşür.",
-    temalar: ["damla", "umman", "vuslat"]
-  },
-  {
-    muellif: "Muhyiddin İbnü'l-Arabî",
-    donem: "12-13. Yüzyıl Endülüs/Şam",
-    eser: "Fusûsu'l-Hikem",
-    orijinal_metin: "Rabbim, Sendeki hayretimi artır! Zira ilim arttıkça hayret azalmaz, katlanır.",
-    serh: "Arının inlemesi aklın iflas ettiği yerdeki kutsal hayret nidasıdır; taşan kabın şükrüdür.",
-    temalar: ["hayret", "tahayyur", "akil-ve-vecd"]
-  },
-  {
-    muellif: "Fuzûlî",
-    donem: "16. Yüzyıl Bağdat",
-    eser: "Gazeliyât",
-    orijinal_metin: "Aşk derdiyle hoşem el çek ilâcımdan tabîb,\nKılma dermân kim helâkim zehr-i dermânındadır.",
-    serh: "Zahir gözüyle arı helak olmaktadır; oysa o helak oluşun bizzat kendisi nihai şifa ve dermandır.",
-    temalar: ["ask", "derd-ve-derman", "zar"]
+    batin: "Fenâ, ebedi dirilişin (Bekābillâh / Samadhi) yegâne eşiğidir.",
+    temel: "Hallâc-ı Mansûr / Ferîdüddîn Attâr (Simurg) / Sri Ramakrishna (Tuz Bebek)"
   }
 ];
 
@@ -120,7 +69,7 @@ class ZarSesSentezleyici {
     // LFO (Vızıltı / Titreşim Modülasyonu)
     this.lfo = this.ctx.createOscillator();
     this.lfoGain = this.ctx.createGain();
-    this.lfo.frequency.setValueAtTime(18.0, this.ctx.currentTime); // Başlangıçta hızlı vızıltı
+    this.lfo.frequency.setValueAtTime(18.0, this.ctx.currentTime);
     this.lfoGain.gain.setValueAtTime(25.0, this.ctx.currentTime);
 
     this.lfo.connect(this.lfoGain);
@@ -159,21 +108,18 @@ class ZarSesSentezleyici {
     if (!this.calisiyor || !this.ctx) return;
     const now = this.ctx.currentTime;
 
-    // Frekans yumuşak geçişi
     this.oscCarrier.frequency.setTargetAtTime(frekans, now, 0.1);
     this.oscHarmonic.frequency.setTargetAtTime(frekans * 1.618, now, 0.1);
 
-    // Viskozite arttıkça ve benlik düştükçe filtre alçalır (ses boğuklaşır, ney tonuna evrilir)
     const filtreHedef = 200 + (benlikOrani * 1400);
     this.filter.frequency.setTargetAtTime(filtreHedef, now, 0.15);
 
-    // LFO hızı da vızıltıdan yavaş vecd nabzına düşer
     const lfoHedef = 2.0 + (benlikOrani * 20.0);
     this.lfo.frequency.setTargetAtTime(lfoHedef, now, 0.2);
   }
 }
 
-// --- Canvas Animasyonu ve Fizik Motoru ---
+// --- Canvas Animasyonu ve Sıvı Fiziği ---
 class HoneySimulationCanvas {
   constructor(canvas) {
     this.canvas = canvas;
@@ -181,12 +127,9 @@ class HoneySimulationCanvas {
     this.width = canvas.width;
     this.height = canvas.height;
 
-    // Durum Değişkenleri
     this.bee = {
       x: 70,
       y: 70,
-      targetX: this.width / 2,
-      targetY: this.height / 2,
       size: 14,
       wingAngle: 0,
       wingSpeed: 0.8,
@@ -208,7 +151,6 @@ class HoneySimulationCanvas {
     this.bee.alpha = 0.1 + (this.benlik * 0.9);
     this.bee.wingSpeed = 0.1 + (this.benlik * 0.7);
 
-    // Eridikçe bal damlası parçacıkları fırlat
     if (this.benlik < 0.9 && Math.random() < (1.0 - this.benlik) * 0.7) {
       this.bee.dissolvedParticles.push({
         x: this.bee.x + (Math.random() - 0.5) * 16,
@@ -223,13 +165,11 @@ class HoneySimulationCanvas {
   }
 
   setPos(t) {
-    // 0 -> 1 arasında arı deryanın merkezine yaklaşır
     const startX = 70, startY = 70;
     const endX = this.width / 2, endY = this.height / 2;
     this.bee.x = startX + (endX - startX) * t;
     this.bee.y = startY + (endY - startY) * t;
 
-    // Merkeze eriştikçe halka dalgaları oluştur
     if (t > 0.4 && Math.random() < 0.15) {
       this.ripples.push({
         x: this.bee.x,
@@ -255,7 +195,6 @@ class HoneySimulationCanvas {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.width, this.height);
 
-    // 1. Bal Deryası Arka Planı (Viskoz Dalgalar)
     const centerX = this.width / 2;
     const centerY = this.height / 2;
 
@@ -266,7 +205,6 @@ class HoneySimulationCanvas {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, this.width, this.height);
 
-    // Bal Akış Çizgileri
     ctx.strokeStyle = "rgba(251, 191, 36, 0.12)";
     ctx.lineWidth = 1.5;
     for (let i = 0; i < 4; i++) {
@@ -276,7 +214,6 @@ class HoneySimulationCanvas {
       ctx.stroke();
     }
 
-    // 2. Yayılma Halkaları (Vecd / Zâr Dalgaları)
     for (let i = this.ripples.length - 1; i >= 0; i--) {
       const rip = this.ripples[i];
       rip.radius += 1.2;
@@ -292,7 +229,6 @@ class HoneySimulationCanvas {
       ctx.stroke();
     }
 
-    // 3. Çözülen Benlik Parçacıkları
     for (let i = this.bee.dissolvedParticles.length - 1; i >= 0; i--) {
       const p = this.bee.dissolvedParticles[i];
       p.x += p.vx;
@@ -311,26 +247,21 @@ class HoneySimulationCanvas {
       ctx.shadowBlur = 0;
     }
 
-    // 4. Arı / Sâlik Çizimi
     ctx.save();
     ctx.translate(this.bee.x, this.bee.y);
     ctx.globalAlpha = this.bee.alpha;
 
-    // Kanatlar
     this.bee.wingAngle += this.bee.wingSpeed;
     const wingFlap = Math.sin(this.bee.wingAngle) * 0.45;
 
     ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-    // Sol Kanat
     ctx.beginPath();
     ctx.ellipse(-6, -8, 4, 10, -0.4 + wingFlap, 0, Math.PI * 2);
     ctx.fill();
-    // Sağ Kanat
     ctx.beginPath();
     ctx.ellipse(6, -8, 4, 10, 0.4 - wingFlap, 0, Math.PI * 2);
     ctx.fill();
 
-    // Gövde (Altın-Siyah çizgili)
     ctx.beginPath();
     ctx.ellipse(0, 0, 7, 11, 0, 0, Math.PI * 2);
     ctx.fillStyle = "#fbbf24";
@@ -339,7 +270,6 @@ class HoneySimulationCanvas {
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
-    // Çizgiler
     ctx.beginPath();
     ctx.moveTo(-6, -2);
     ctx.lineTo(6, -2);
@@ -347,13 +277,11 @@ class HoneySimulationCanvas {
     ctx.lineTo(6, 3);
     ctx.stroke();
 
-    // Baş
     ctx.beginPath();
     ctx.arc(0, -9, 4, 0, Math.PI * 2);
     ctx.fillStyle = "#78350f";
     ctx.fill();
 
-    // Kutsal Işıma (Balın içine girdikçe parlar)
     if (this.benlik < 0.6) {
       ctx.beginPath();
       ctx.arc(0, 0, 18, 0, Math.PI * 2);
@@ -362,18 +290,21 @@ class HoneySimulationCanvas {
     }
 
     ctx.restore();
-
     requestAnimationFrame(this.animate);
   }
 }
 
-// --- Ana Uygulama Mantığı ---
+// --- Ana Uygulama ---
 class App {
   constructor() {
     this.canvas = new HoneySimulationCanvas(document.getElementById("honey-canvas"));
     this.audio = new ZarSesSentezleyici();
     this.matrixData = DEFAULT_MATRIX;
-    this.corpusData = DEFAULT_CORPUS;
+    this.corpusData = [];
+
+    this.activeTradition = "all";
+    this.activeMotif = "all";
+    this.searchTerm = "";
 
     this.steps = [];
     this.currentStepIdx = 0;
@@ -388,6 +319,7 @@ class App {
     this.btnStart = document.getElementById("btn-start");
     this.btnReset = document.getElementById("btn-reset");
     this.btnAudio = document.getElementById("btn-audio");
+    this.btnRandomInsight = document.getElementById("btn-random-insight");
 
     this.badgeMakam = document.getElementById("badge-makam");
     this.zarText = document.getElementById("zar-text");
@@ -415,12 +347,18 @@ class App {
     this.matrixTbody = document.getElementById("matrix-tbody");
     this.corpusGrid = document.getElementById("corpus-grid");
     this.corpusSearch = document.getElementById("corpus-search");
+
+    this.bannerQuote = document.getElementById("contemplation-quote");
+    this.bannerAuthor = document.getElementById("contemplation-author");
+    this.bannerWork = document.getElementById("contemplation-work");
+    this.bannerTradition = document.getElementById("contemplation-tradition");
   }
 
   initEvents() {
     this.btnStart.addEventListener("click", () => this.startSimulation());
     this.btnReset.addEventListener("click", () => this.resetSimulation());
     this.btnAudio.addEventListener("click", () => this.toggleAudio());
+    this.btnRandomInsight.addEventListener("click", () => this.showRandomInsight());
 
     this.rangeViskozite.addEventListener("input", (e) => {
       this.lblViskozite.textContent = e.target.value;
@@ -432,7 +370,8 @@ class App {
     });
 
     this.corpusSearch.addEventListener("input", (e) => {
-      this.renderCorpus(e.target.value);
+      this.searchTerm = e.target.value;
+      this.renderFilteredCorpus();
     });
 
     // Matrix Filtre Sekmeleri
@@ -441,6 +380,26 @@ class App {
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         e.target.classList.add("active");
         this.renderMatrix(e.target.id);
+      });
+    });
+
+    // Gelenek Filtre Butonları
+    document.querySelectorAll("#tradition-filters .pill").forEach((pill) => {
+      pill.addEventListener("click", (e) => {
+        document.querySelectorAll("#tradition-filters .pill").forEach((p) => p.classList.remove("active"));
+        e.target.classList.add("active");
+        this.activeTradition = e.target.getAttribute("data-value");
+        this.renderFilteredCorpus();
+      });
+    });
+
+    // Motif Filtre Butonları
+    document.querySelectorAll("#motif-filters .pill").forEach((pill) => {
+      pill.addEventListener("click", (e) => {
+        document.querySelectorAll("#motif-filters .pill").forEach((p) => p.classList.remove("active"));
+        e.target.classList.add("active");
+        this.activeMotif = e.target.getAttribute("data-value");
+        this.renderFilteredCorpus();
       });
     });
   }
@@ -453,11 +412,23 @@ class App {
 
     try {
       const cRes = await fetch("/api/corpus");
-      if (cRes.ok) this.corpusData = await cRes.json();
+      if (cRes.ok) {
+        this.corpusData = await cRes.json();
+      }
     } catch (_) {}
 
     this.renderMatrix("tab-all");
-    this.renderCorpus("");
+    this.renderFilteredCorpus();
+    this.showRandomInsight();
+  }
+
+  showRandomInsight() {
+    if (!this.corpusData || this.corpusData.length === 0) return;
+    const item = this.corpusData[Math.floor(Math.random() * this.corpusData.length)];
+    this.bannerQuote.textContent = `"${item.orijinal_metin.replace(/\n/g, ' / ')}"`;
+    this.bannerAuthor.textContent = item.muellif;
+    this.bannerWork.textContent = item.eser;
+    this.bannerTradition.textContent = item.gelenek || "İrfan Geleneği";
   }
 
   renderMatrix(filterId) {
@@ -478,32 +449,58 @@ class App {
     });
   }
 
-  renderCorpus(filterText) {
+  renderFilteredCorpus() {
     this.corpusGrid.innerHTML = "";
-    const q = (filterText || "").toLowerCase();
+    const q = (this.searchTerm || "").toLowerCase();
 
     const filtered = this.corpusData.filter((item) => {
-      if (!q) return true;
-      return (
-        item.muellif.toLowerCase().includes(q) ||
-        item.eser.toLowerCase().includes(q) ||
-        item.orijinal_metin.toLowerCase().includes(q) ||
-        item.serh.toLowerCase().includes(q) ||
-        item.temalar.some((t) => t.toLowerCase().includes(q))
-      );
+      // Gelenek filtresi
+      if (this.activeTradition !== "all" && item.gelenek !== this.activeTradition) {
+        return false;
+      }
+      // Motif filtresi
+      if (this.activeMotif !== "all" && item.motif !== this.activeMotif) {
+        return false;
+      }
+      // Metin araması
+      if (q) {
+        const match =
+          item.muellif.toLowerCase().includes(q) ||
+          item.eser.toLowerCase().includes(q) ||
+          item.orijinal_metin.toLowerCase().includes(q) ||
+          item.serh.toLowerCase().includes(q) ||
+          (item.gelenek && item.gelenek.toLowerCase().includes(q)) ||
+          (item.motif && item.motif.toLowerCase().includes(q)) ||
+          item.temalar.some((t) => t.toLowerCase().includes(q));
+        if (!match) return false;
+      }
+      return true;
     });
+
+    if (filtered.length === 0) {
+      this.corpusGrid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 30px;">
+          Seçilen kriterlere uygun irfani kayıt bulunamadı.
+        </div>
+      `;
+      return;
+    }
 
     filtered.forEach((item) => {
       const card = document.createElement("div");
       card.className = "corpus-card";
       card.innerHTML = `
         <div class="corpus-header">
-          <span class="corpus-author">${item.muellif}</span>
-          <span class="corpus-meta">${item.donem} &middot; ${item.eser}</span>
+          <div class="corpus-author-meta">
+            <span class="corpus-author">${item.muellif}</span>
+            <span class="corpus-meta">${item.donem} &middot; ${item.eser}</span>
+          </div>
+          <span class="corpus-motif-badge">${item.motif || "ari-ve-bal"}</span>
         </div>
         <div class="corpus-verse">${item.orijinal_metin}</div>
-        <div class="corpus-serh">${item.serh}</div>
+        <div class="corpus-serh"><strong>Şerh:</strong> ${item.serh}</div>
         <div class="corpus-tags">
+          <span class="corpus-tag" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan);">${item.gelenek}</span>
           ${item.temalar.map((t) => `<span class="corpus-tag">#${t}</span>`).join("")}
         </div>
       `;
@@ -540,7 +537,6 @@ class App {
       }
     } catch (_) {}
 
-    // Sunucu yoksa veya hata verirse yerel döngü
     this.runLocalSimulation(salik, parseFloat(viskozite), parseFloat(hiz));
   }
 
@@ -614,7 +610,6 @@ class App {
   }
 
   applyStep(step, idx, total) {
-    // Timeline aktifliği
     document.querySelectorAll(".timeline-step").forEach((el) => el.classList.remove("active"));
     const activeEl = document.getElementById(`step-item-${idx}`);
     if (activeEl) {
@@ -622,12 +617,10 @@ class App {
       activeEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
-    // Canvas pozisyonu ve parçacıklar
     const progress = (idx + 1) / total;
     this.canvas.setPos(progress);
     this.canvas.setBenlik(step.durum.benlik_orani);
 
-    // Telemetri
     this.badgeMakam.textContent = `Makam: ${step.durum.makam}`;
     this.zarText.textContent = step.zar_metni;
 
@@ -646,7 +639,6 @@ class App {
     this.valFrekans.textContent = `${step.durum.rezonans_frekansi.toFixed(1)} Hz`;
     this.valKarakter.textContent = step.durum.ses_karakteri;
 
-    // Ses Frekansı Güncellemesi
     this.audio.guncelle(step.durum.rezonans_frekansi, step.durum.benlik_orani);
   }
 
@@ -679,7 +671,6 @@ class App {
   }
 }
 
-// Uygulamayı Başlat
 window.addEventListener("DOMContentLoaded", () => {
   new App();
 });
