@@ -9,6 +9,10 @@
 > *"Kudretten verdi balı / Bahanesi oldu arı / Dinle imdi âh u zârı / Arı inler bal içinde."*  
 > — **Anadolu İrfanı, Doğu Mistisizmi ve Vahdet-i Vücûd Geleneğinde:** Vuslat Paradoksu, Fenâ Mertebesi, Kesret-Vahdet Diyalektiği ve Hayret Makamının Ontolojik Mimarisi.
 
+<p align="center">
+  <img src="assets/images/01_hero_ari_bal_vuslat.png" alt="Arı İnler Bal İçinde - Vuslat ve Fenâ" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(245, 158, 11, 0.25);" />
+</p>
+
 ---
 
 ## 📌 1. Giriş ve Hakikatin Çekirdeği
@@ -24,6 +28,12 @@ Bu kütüphane ve ontoloji motoru; **"Arı inler bal içinde"** mısrasının i�
 1. **İllüzyonun Yıkılışı (Kudret vs. Bahane):** Eylemin, eserin ve varlığın hakiki failinin idrak edilmesiyle sahte egonun (`ene`) bir yanılsamadan ibaret olduğunun kavranması (*Tevhid-i Ef'âl*).
 2. **Fenâ ve Viskozite (Eriyen Kimlik):** Sonlu ve kırılgan bir formun, mutlak ve sonsuz bir derya içinde kendi sınırlarını yitirmesi; var olmak için biçimsel olarak yok olma zorunluluğu (*Fenâfillâh / Samadhi*).
 3. **Hayret Makamı (Taşan Kap Prensibi):** Dışarıdan bakan bir gözün "ıstırap ve azap" zannettiği sesin; idraki, aklı ve kapasiteyi aşan mutlak bir lezzet karşısında verilen sarhoşluk, zikir ve vecd yanıtı olması (*Tahayyür*).
+
+<p align="center">
+  <img src="assets/images/02_kudret_ve_bahane.png" alt="Kudretten Verdi Balı, Bahanesi Oldu Arı" width="100%" style="border-radius: 10px;" />
+  <br/>
+  <em>«Kudretten verdi balı, bahanesi oldu arı...» — Pir Sultan Abdal / Tevhid-i Ef'âl Tecellisi</em>
+</p>
 
 ---
 
@@ -42,6 +52,12 @@ flowchart TD
     
     HAYRET --> BEKA["Bekābillâh\nİkilik kalkar: Damla ummân, tuz deniz olur"]
 ```
+
+<p align="center">
+  <img src="assets/images/03_fena_ve_viskozite.png" alt="Fenâ Mertebesi ve Balın Viskozitesi" width="100%" style="border-radius: 10px;" />
+  <br/>
+  <em>Balın viskozitesinde çözülen biçimsel benlik ve fenâfillâh teslimiyeti</em>
+</p>
 
 ---
 
@@ -100,6 +116,12 @@ Külliyat, Anadolu'nun 7 Ulu Ozanı'ndan klasik tasavvuf kanonuna ve evrensel no
 | **`ney-ve-nefes`** | Neyin iniltisi şikâyet değil, üfleyenin nefesidir. | Mevlânâ Celâleddîn-i Rûmî | Dar bedenden geçen ilahi kudretin rezonansı. |
 | **`ayna-ve-suret`** | Bakan ile bakılan tek bir aynada özdeşleşir. | Meister Eckhart, Attâr (Simurg), Nesîmî | 'O'nu gören gözün O'nun gözü olması. |
 
+<p align="center">
+  <img src="assets/images/05_katre_ve_umman.png" alt="Katrenin Ummân Oluşu ve Tuz Bebek" width="100%" style="border-radius: 10px;" />
+  <br/>
+  <em>«Katre mevc urdu vü ummân oldu...» — Damlanın denizde, tuz bebeğin deryada erimesi</em>
+</p>
+
 ---
 
 ## 📊 5. Suret (Zâhir / Avam) ile Hakikat (Bâtın / Havas) Matrisi
@@ -128,6 +150,12 @@ $$H(t) = 1.5 \cdot \ln\left(1 + \frac{\Omega_{kudret} \cdot (1 - e^{-0.35 t})}{C
 ### C. Akustik Zâr Modülasyonu ($f_{zar}$)
 Arının vızıltısı, benlik eridikçe kesretin sitemkar frekansından ($440\text{ Hz}$), Ney ve evrensel derya tonuna ($136.1\text{ Hz}$) ve altın oran harmoniklerine ($\phi \approx 1.618$) evrilir:
 $$f_{zar}(t) = 440 \cdot E(t) + 136.1 \cdot (1 - E(t)) + \delta_{hayret}$$
+
+<p align="center">
+  <img src="assets/images/04_hayret_ve_zar.png" alt="Hayret Makamı ve Zâr Sedası" width="100%" style="border-radius: 10px;" />
+  <br/>
+  <em>Hayret makamında taşan kap ve ney rezonansıyla yankılanan zâr sedası</em>
+</p>
 
 ---
 
@@ -246,11 +274,17 @@ ari-inler-bal-icinde/
 ├── .github/workflows/ci.yml       # GitHub Actions çoklu platform CI
 ├── .gitignore                     # Git yoksayma kuralları
 ├── LICENSE                        # MIT Lisansı
-├── README.md                      # Kapsamlı manifesto, antoloji ve dokümantasyon
+├── README.md                      # Kapsamlı manifesto, antoloji ve 5 görsel
 ├── pyproject.toml                 # Paket ve metaveri yapılandırması
 ├── setup.py                       # Setuptools kurulum scripti
 ├── requirements.txt               # Harici bağımlılık gerekmez (stdlib)
 ├── requirements-dev.txt           # Test ve geliştirici bağımlılıkları
+├── assets/images/                 # 5 Özgün İrfani ve Tasavvufi Görsel
+│   ├── 01_hero_ari_bal_vuslat.png # Vuslat ve Fenâ Hero Görseli
+│   ├── 02_kudret_ve_bahane.png    # Tevhid-i Ef'âl ve Bal Akışı
+│   ├── 03_fena_ve_viskozite.png   # Viskozite ve Çözülen Benlik
+│   ├── 04_hayret_ve_zar.png       # Akustik Rezonans ve Ney Sedası
+│   └── 05_katre_ve_umman.png      # Katre, Ummân ve Tuz Bebek
 ├── ari_inler_bal_icinde/          # Ana Python paketi
 │   ├── __init__.py                # Dışa aktarılan sınıflar ve versiyon
 │   ├── __main__.py                # `python -m ari_inler_bal_icinde` girişi
