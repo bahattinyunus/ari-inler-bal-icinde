@@ -1,0 +1,1 @@
+# Çekirdek motor için harici bağımlılık gerekmez (Saf Python 3.9+ Standard Library)

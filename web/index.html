@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍯 Arı İnler Bal İçinde — Vuslat ve Fenâ Simülatörü</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="hero">
+      <div class="hero-badge">Anadolu İrfanı &middot; Vahdet-i Vücûd &middot; Ontoloji Mimarisi</div>
+      <h1 class="hero-title">🍯 Arı İnler Bal İçinde</h1>
+      <p class="hero-quote">
+        <em>"Kudretten verdi balı / Bahanesi oldu arı / Dinle imdi âh u zârı / Arı inler bal içinde."</em>
+      </p>
+      <div class="hero-actions">
+        <button id="btn-start" class="btn btn-primary">▶ Seyr-ü Sülûk'u Başlat</button>
+        <button id="btn-reset" class="btn btn-secondary">↺ Başa Dön</button>
+        <button id="btn-audio" class="btn btn-audio">🔊 Vecd Sesini Aç</button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="grid-layout">
+      <!-- Left Column: Canvas & Visual Dissolution -->
+      <section class="card canvas-card">
+        <div class="card-header">
+          <h2>🌌 Bal Deryası ve Fenâ Görselleştirmesi</h2>
+          <span id="badge-makam" class="badge">Makam: Talep</span>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="honey-canvas" width="600" height="420"></canvas>
+          <div id="zar-overlay" class="zar-overlay">
+            <span class="zar-icon">🕊️</span>
+            <div id="zar-text" class="zar-text">Vızıltı: Ayrılık ve kesret telaşı...</div>
+          </div>
+        </div>
+
+        <!-- Live Telemetry -->
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-label">Benlik (Ego)</span>
+            <div class="progress-bar-bg">
+              <div id="bar-benlik" class="progress-bar-fill" style="width: 100%;"></div>
+            </div>
+            <span id="val-benlik" class="telemetry-val">%100.0</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">Viskozite Direnci</span>
+            <div class="progress-bar-bg">
+              <div id="bar-direnc" class="progress-bar-fill gold" style="width: 100%;"></div>
+            </div>
+            <span id="val-direnc" class="telemetry-val">1.000</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">Hayret Katsayısı</span>
+            <div class="progress-bar-bg">
+              <div id="bar-hayret" class="progress-bar-fill amber" style="width: 0%;"></div>
+            </div>
+            <span id="val-hayret" class="telemetry-val">0.000</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">Zâr Frekansı</span>
+            <span id="val-frekans" class="telemetry-val freq">440.0 Hz</span>
+            <span id="val-karakter" class="telemetry-sub">Kesret Feryadı</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive Journey & Controls -->
+      <section class="card controls-card">
+        <div class="card-header">
+          <h2>🎛️ Seyr-ü Sülûk Parametreleri</h2>
+        </div>
+        <div class="controls-form">
+          <div class="form-group">
+            <label for="input-salik">Sâlik / Arı İsmi:</label>
+            <input type="text" id="input-salik" value="Derviş / Arı" class="input-text">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="range-viskozite">Bal Viskozitesi (η): <span id="lbl-viskozite">1.618</span></label>
+              <input type="range" id="range-viskozite" min="0.5" max="4.0" step="0.1" value="1.618">
+            </div>
+            <div class="form-group">
+              <label for="range-hiz">Çözünme Sürati (λ): <span id="lbl-hiz">0.28</span></label>
+              <input type="range" id="range-hiz" min="0.05" max="0.8" step="0.01" value="0.28">
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-title">🪜 Seyr Mertebeleri</h3>
+        <div id="steps-timeline" class="timeline">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="final-tecelli" class="final-tecelli hidden">
+          <div class="tecelli-box">
+            <h4>✨ Nihai Zâr Tecellisi</h4>
+            <p id="tecelli-hukum" class="tecelli-hukum"></p>
+            <p id="tecelli-hal" class="tecelli-hal"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Matrix Section: Zâhir vs Bâtın -->
+    <section class="card full-card">
+      <div class="card-header">
+        <h2>⚖️ Suret (Zâhir) ile Hakikat (Bâtın) Karşılaştırma Matrisi</h2>
+        <div class="matrix-filter">
+          <button id="tab-all" class="tab-btn active">Tüm Boyutlar</button>
+          <button id="tab-zahir" class="tab-btn">Avam Gözü</button>
+          <button id="tab-batin" class="tab-btn">Havas Gözü</button>
+        </div>
+      </div>
+      <div class="matrix-table-wrapper">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Ontolojik Parametre</th>
+              <th class="col-zahir">Zâhirî Bakış (Suret / Avam)</th>
+              <th class="col-batin">Bâtınî Bakış (Hakikat / Havas)</th>
+              <th>Kanonik Temel</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Canonical Corpus Section -->
+    <section class="card full-card">
+      <div class="card-header">
+        <h2>📚 Kanonik İrfan Kütüphanesi ve Şerhler</h2>
+        <div class="corpus-search-box">
+          <input type="text" id="corpus-search" placeholder="Ârif, tema veya beyit ara..." class="input-text">
+        </div>
+      </div>
+      <div id="corpus-grid" class="corpus-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        <strong>ari-inler-bal-icinde</strong> &middot; Pir Sultan Abdal, Yunus Emre, Niyâzî-i Mısrî ve cümle erenlerin irfani mirasına hürmetle.
+      </p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

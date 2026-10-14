@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ari-inler-bal-icinde"
+version = "0.1.0"
+description = "Anadolu İrfanı ve Doğu Mistisizminde Vuslat Paradoksu, Fenâ Mertebesi ve Hayret Makamı Modellemesi"
+readme = "README.md"
+authors = [
+  { name = "Bahattin Yunus ÇETİN", email = "bahattinyunuscetin@hotmail.com" }
+]
+license = { text = "MIT" }
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Religion",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: Turkish",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Philosophy",
+  "Topic :: Sociology :: History of Science",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+]
+
+[project.scripts]
+ari-inler-bal-icinde = "ari_inler_bal_icinde.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ari_inler_bal_icinde*"]
+
+[tool.setuptools.package-data]
+"ari_inler_bal_icinde" = ["data/*.json"]
